@@ -57,6 +57,14 @@ export default function reducer(state, action) {
         option: [...state.option, action.type],
         prevOption: state.option
       };
+    case "COLOR":
+      return {
+        ...state,
+        cars: state.cars.filter(car => car.color == action.color),
+        prevCars: state.cars,
+        option: [...state.option, action.type, action.color],
+        prevOption: state.option
+      };
     case "UNDO":
       return {
         ...state,

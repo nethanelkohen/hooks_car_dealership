@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
+import ColorDropDown from "./ColorDropDown";
 import { Container, Row, Col, Button, ButtonGroup } from "reactstrap";
+import Context from "./Context";
 
-export default function FilterButton({ filterByChoice, props }) {
-  const showActive = arg => {
-    return props && props.option.includes(arg) ? true : false;
-  };
+export default function FilterButton() {
+  const { filterByChoice, showActive, state } = useContext(Context);
 
   return (
     <Container>
       <Row>
         <Col>
           <ButtonGroup>
-            {props && props.prevCars ? (
+            {state && state.prevCars ? (
               <Button color="danger" onClick={() => filterByChoice("UNDO")}>
                 Undo
               </Button>
@@ -19,44 +19,45 @@ export default function FilterButton({ filterByChoice, props }) {
             <Button color="info" onClick={() => filterByChoice("RESET")}>
               Show All
             </Button>
+            <ColorDropDown />
             <Button
               color="success"
-              active={showActive("HAS_SUN_ROOF")}
+              active={showActive && showActive("HAS_SUN_ROOF")}
               onClick={() => filterByChoice("HAS_SUN_ROOF")}
             >
               Has Sun Roof
             </Button>
             <Button
               color="success"
-              active={showActive("IS_FOUR_WHEEL")}
+              active={showActive && showActive("IS_FOUR_WHEEL")}
               onClick={() => filterByChoice("IS_FOUR_WHEEL")}
             >
               Has 4WD
             </Button>
             <Button
               color="success"
-              active={showActive("HAS_LOW_MILES")}
+              active={showActive && showActive("HAS_LOW_MILES")}
               onClick={() => filterByChoice("HAS_LOW_MILES")}
             >
               Has Low Miles
             </Button>
             <Button
               color="success"
-              active={showActive("HAS_POWER_WINDOWS")}
+              active={showActive && showActive("HAS_POWER_WINDOWS")}
               onClick={() => filterByChoice("HAS_POWER_WINDOWS")}
             >
               Has Power Windows
             </Button>
             <Button
               color="success"
-              active={showActive("HAS_NAVIGATION")}
+              active={showActive && showActive("HAS_NAVIGATION")}
               onClick={() => filterByChoice("HAS_NAVIGATION")}
             >
               Has Navigation
             </Button>
             <Button
               color="success"
-              active={showActive("HAS_HEATED_SEATS")}
+              active={showActive && showActive("HAS_HEATED_SEATS")}
               onClick={() => filterByChoice("HAS_HEATED_SEATS")}
             >
               Has Heated Seats

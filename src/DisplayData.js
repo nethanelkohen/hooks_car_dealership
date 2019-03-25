@@ -1,8 +1,11 @@
-import React from "react";
-import { Card, CardText, CardBody, CardTitle, CardSubtitle } from "reactstrap";
+import React, { useContext } from "react";
+import { Card, CardText, CardBody, CardTitle } from "reactstrap";
+import Context from "./Context";
 
-export default function DisplayData({ props }) {
-  if (props && props.cars.length === 0)
+export default function DisplayData() {
+  const { state } = useContext(Context);
+
+  if (state && state.cars.length === 0)
     return (
       <Card>
         <CardBody>
@@ -11,26 +14,30 @@ export default function DisplayData({ props }) {
       </Card>
     );
 
-  if (!props) {
+  if (!state) {
     return null;
   } else {
-    return props.cars.map(car => {
+    return state.cars.map(car => {
       return (
         <Card key={car._id}>
           <CardBody>
-            <CardTitle>Manufacturer: {car.make}</CardTitle>
-            <CardSubtitle>price: ${car.price}</CardSubtitle>
+            <CardTitle>
+              <strong>Make: {car.make}</strong>
+            </CardTitle>
+            <CardTitle>
+              <strong>Price: ${car.price}</strong>
+            </CardTitle>
+            <CardTitle>
+              <strong>Year: {car.year}</strong>
+            </CardTitle>
             <br />
-            <CardText>{car.hasSunroof ? `Has sunroof` : null}</CardText>
-            <CardText>
-              {car.isFourWheelDrive ? `Is four wheel drive` : null}
-            </CardText>
-            <CardText>{car.hasLowMiles ? `Has low miles` : null}</CardText>
-            {car.hashPowerWindows ? `Has h5ower windows` : null}
-            <CardText> {car.hasNavigation ? `Has navigation` : null}</CardText>
-            <CardText>
-              {car.hasHeatedSeats ? `Has has heated seats` : null}
-            </CardText>
+            <CardText>{car.color && car.color}</CardText>
+            <CardText>{car.hasSunroof ? `Sunroof` : null}</CardText>
+            <CardText>{car.isFourWheelDrive ? `4WD` : null}</CardText>
+            <CardText>{car.hasLowMiles ? `Low miles` : null}</CardText>
+            {car.hashPowerWindows ? `P windows` : null}
+            <CardText> {car.hasNavigation ? `Navigation` : null}</CardText>
+            <CardText>{car.hasHeatedSeats ? `Heated seats` : null}</CardText>
           </CardBody>
         </Card>
       );
